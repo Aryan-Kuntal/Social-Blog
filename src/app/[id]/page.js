@@ -2,11 +2,12 @@
 import { useParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react'
 import Paper from '@mui/material/Paper'
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Comments from '../../../components/Comments';
 
 export default function id() {
 
@@ -33,19 +34,11 @@ export default function id() {
         getCommentsForPost()
     }, [])
 
-    const generateCommentsList = (comment) => {
-        console.log(comment)
-        return (<ListItem>
-            <ListItemText
-                primary={comment.name}
-                secondary={comment.body}
-            />
-        </ListItem>)
-    }
+    
 
     return (
         <>
-            <Paper elevation={3} sx={{ padding: 2, mb: 10,mt:10 }}>
+            <Paper elevation={3} sx={{ padding: 2, mb: 10, mt: 10 }}>
                 {
                     <>
                         <Typography variant="h4" component="div" sx={{ mb: 4, textAlign: 'center' }}>
@@ -56,14 +49,12 @@ export default function id() {
                         </Typography>
                     </>
                 }
+                <IconButton aria-label="add to favorites" onClick={() => {('like' in post) ? setPost({...post,like:!post.like}) : setPost({...post,like:true})}} >
+                    {(post.like) ? <FavoriteIcon /> : <FavoriteBorderIcon/> }
+                </IconButton>
             </Paper>
-            <strong>Comments</strong>
-            <hr />
-            <List dense={true}>
-                {
-                    comments.map(comment => generateCommentsList(comment)
-                )}
-            </List>
+           <Comments comments={comments} setComments={setComments}/>
+            
         </>
     )
 }
