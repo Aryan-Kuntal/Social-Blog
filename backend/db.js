@@ -15,7 +15,7 @@ const establishConnection = async () => {
     console.error(e);
   } 
     
-  return conn.db('Social-Blog')
+  return conn.db(process.env.DB)
 };
 
 let database = establishConnection()
