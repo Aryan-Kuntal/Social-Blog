@@ -15,7 +15,7 @@ export const AuthProvider = ({children}) =>{
 
 export const useAuthProvider = () => {
 
-    const [user, setUser] = useState({something:'test'})
+    const [user, setUser] = useState()
 
     const signin = async (email, password) => {
 

@@ -12,12 +12,24 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { PostAddOutlined } from '@mui/icons-material';
 import BlogCard from '../../components/BlogCard';
+import { useAuth } from '../../hooks/AuthHook';
+import { useRouter } from 'next/navigation';
 
 export default function Posts() {
 
     const [posts, setPosts] = useState([])
+    const [hasLoaded,setHasLoaded] = useState(false)
+
+    const auth = useAuth()
+    const router = useRouter()
 
     useEffect(() => {
+
+        if (!auth.user){
+            router.replace('/signin')
+            return
+        }
+
         const getPosts = async () => {
             const req = await fetch('https://jsonplaceholder.typicode.com/posts', { cache: 'no-store' })
             const data = await req.json()
@@ -26,12 +38,16 @@ export default function Posts() {
         }
 
         getPosts()
+
+        setHasLoaded(true)
     }, [])
 
 
 
     return (
         <>
+        { hasLoaded
+        ?<>
         <Box sx={{display:'flex-container',justifyContent:'center'}}>
             <Typography variant='h1' sx={{mb:2}}>
                 All Posts
@@ -45,7 +61,7 @@ export default function Posts() {
                 )
             })}
         </Box>
+        </> : <p>Loading...</p>}
         </>
-    
     )
 }

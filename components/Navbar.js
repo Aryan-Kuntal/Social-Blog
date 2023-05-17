@@ -8,7 +8,6 @@ import { useAuth } from '../hooks/AuthHook';
 
 
 function Navbar() {
-    const pages = [{ name: 'Create New', url: 'new-post' }]
 
     const auth = useAuth()
 
@@ -22,13 +21,14 @@ function Navbar() {
                     </Typography>
                 </Button>
             </Link>
-            {pages.map((page) => (
-                <Link href={`/${page.url}`}>
+            {auth.user &&
+                <Link href={'/new-post'}>
                     <Button>
                         <h4 style={{ color: 'white' }}>{page.name}</h4>
                     </Button>
                 </Link>
-            ))}
+            }
+            
             </Box>
             <Box sx={{display:'flex-container',background: 'black', alignItems: 'center', gap: 1}}>
             {auth.user 

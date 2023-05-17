@@ -19,6 +19,7 @@ export default function page() {
 
 
   useEffect(() => {
+    
     if (auth.user) {
       router.replace('/')
     }

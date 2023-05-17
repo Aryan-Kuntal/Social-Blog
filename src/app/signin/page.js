@@ -14,11 +14,13 @@ export default function page() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [hasLoaded, setHasLoaded] = useState(false)
+    const [message,setMessage] = useState(null)
 
     const auth = useAuth()
     const router = useRouter()
 
     useEffect(() => {
+        
         if (auth.user) {
             router.push('/')
         }

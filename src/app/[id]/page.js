@@ -9,19 +9,26 @@ import Button from '@mui/material/Button'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Comments from '../../../components/Comments';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '../../../hooks/AuthHook';
 
 
-export default function id() {
+export default function id(props) {
 
     const [post, setPost] = useState({})
-    const params = useParams()
     const [hasloaded, setHasLoaded] = useState(false)
     const [comments, setComments] = useState([])
+    
     const router = useRouter()
+    const auth = useAuth()
 
     useEffect(() => {
-
-        const id = params.id
+        
+        if (!auth.user){
+            router.push('/signin',{message:'login required'})
+            return
+        }
+        
+        const id = props.params.id
 
         const getPostById = async () => {
             const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, { cache: 'no-store' })
