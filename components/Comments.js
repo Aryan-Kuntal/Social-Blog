@@ -29,7 +29,7 @@ const Comments = ({comments,setComments}) => {
                     comments.map(comment => generateCommentsList(comment)
                     )}
                 <ListItem>
-                    {showCommentbox && <AddCommentform setShowCommentBox={setShowCommentBox} />}
+                    {showCommentbox && <AddCommentform setShowCommentBox={setShowCommentBox} setComments={setComments}/>}
                 </ListItem>
                 <ListItem>
                     <Button onClick={() => setShowCommentBox(!showCommentbox)}>{`${showCommentbox ? 'Hide Commentbox' : 'Add Comment'}`}</Button>
